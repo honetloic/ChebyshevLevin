@@ -1,0 +1,12 @@
+name = "ChebyshevLevin"
+uuid = "e8d8c9f0-7f3e-4a8b-9f1c-2d3e4f5a6b7c"
+authors = ["Loic Honet"]
+version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Polynomials = "f27b6e38-b328-58d1-80ce-0feddd5e7a45"
+
+[compat]
+julia = "1.6"
+Polynomials = "3, 4"
