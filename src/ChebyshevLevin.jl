@@ -193,11 +193,8 @@ function chebyshev_levin(f::F, omegadg::G, omegag::H, a, b, points=10) where {F,
     #                primitive_integral(-1) * oscillating_factor(a)
     #integral_err = primitive_integral_err(1) * oscillating_factor(b) - 
     #                primitive_integral_err(-1) * oscillating_factor(a)
-    #rel_err = abs(integral_value - integral_err) / abs(integral_value)
-    rel_err_b = abs(primitive_integral(1) - primitive_integral_err(1)) / abs(primitive_integral(1))
-    rel_err_a = abs(primitive_integral(-1) - primitive_integral_err(-1)) / abs(primitive_integral(-1))
-    #return (integral_value, rel_err)
-    return (primitive_integral(1), rel_err_b, primitive_integral(-1), rel_err_a)
+    #return (F(b), F_low(b), F(a), F_low(a))
+    return (primitive_integral(1), primitive_integral_err(1), primitive_integral(-1), primitive_integral_err(-1))
 end
 
 end # module
