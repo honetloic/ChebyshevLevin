@@ -59,7 +59,8 @@ For an oscillatory integral ∫ f(r) exp(iω(r)) dr, Levin's method solves:
 where p is represented as a sum of Chebyshev polynomials.
 """
 function M_func(omegadg::F, a, b) where F
-    return (r, n) -> ChebyshevT(1, n)(-1 + 2 * (r - a) / (b - a)) * im * omegadg(r) + 
+
+    return (r, n) -> (ChebyshevT(1, n)(-1 + 2 * (r - a) / (b - a))) * im * omegadg(r) + 
                      2 / (b - a) * derivative(ChebyshevT(1, n))(-1 + 2 * (r - a) / (b - a))
 end
 
@@ -181,9 +182,9 @@ function chebyshev_levin(f::F, omegadg::G, omegag::H, a, b, points=10) where {F,
     cheb_coeffs, cheb_errs = chebyshev_levin_coefficients(f, omegadg, a, b, points)
     
     # Construct the primitive (antiderivative) as a sum of Chebyshev polynomials
-    primitive_integral = sum(cheb_coeffs[i+1] * ChebyshevT(1, i) for i in 0:n-1)
-    primitive_integral_err = sum(cheb_errs[i+1] * ChebyshevT(1, i) for i in 0:points-1)
-    
+    primitive_integral = sum(cheb_coeffs[i+1] * (ChebyshevT(1, i)) for i in 0:n-1)
+    primitive_integral_err = sum(cheb_errs[i+1] * (ChebyshevT(1, i)) for i in 0:points-1)
+
     # Oscillating factor
     #oscillating_factor(r) = exp(im * omegag(r))
     
@@ -194,7 +195,8 @@ function chebyshev_levin(f::F, omegadg::G, omegag::H, a, b, points=10) where {F,
     #integral_err = primitive_integral_err(1) * oscillating_factor(b) - 
     #                primitive_integral_err(-1) * oscillating_factor(a)
     #return (F(b), F_low(b), F(a), F_low(a))
-    return (primitive_integral(1), primitive_integral_err(1), primitive_integral(-1), primitive_integral_err(-1))
+    return primitive_integral
+    #return (primitive_integral(1), primitive_integral_err(1), primitive_integral(-1), primitive_integral_err(-1))
 end
 
 end # module
