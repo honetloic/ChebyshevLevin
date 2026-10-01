@@ -1,0 +1,39 @@
+# Julia
+*.jl.*.cov
+*.jl.cov
+*.jl.mem
+Manifest.toml
+/deps/deps.jl
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.so
+*.dll
+*.dylib
+*.o
+*.a
+
+# Temporary files
+*.tmp
+
+# Machine-specific environments and generated results
+Manifest.toml
+Manifest-v*.toml
+Manifest.local*.toml
+.ci-artifacts/
+.DS_Store
+.ipynb_checkpoints/
+*.jl.cov
+*.jl.mem
+*.pb.gz
+*.code-workspace

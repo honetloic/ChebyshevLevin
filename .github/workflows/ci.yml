@@ -1,0 +1,45 @@
+name: CI
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    name: Julia ${{ matrix.julia }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        julia: ['1.11']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    env:
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      JULIA_PKG_PRECOMPILE_AUTO: '0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.julia }}
+      - uses: julia-actions/cache@v2
+        with:
+          delete-old-caches: 'false'
+      - name: Resolve in a fresh environment and test
+        run: julia --startup-file=no --history-file=no scripts/ci.jl
+      - name: Save dependency resolution for diagnosis
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resolution-${{ matrix.os }}-${{ matrix.julia }}
+          path: .ci-artifacts/
+          if-no-files-found: ignore

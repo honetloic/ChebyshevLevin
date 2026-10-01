@@ -1,0 +1,6 @@
+# Local environments must never enter release source archives.
+Manifest.toml export-ignore
+Manifest-v*.toml export-ignore
+Manifest.local*.toml export-ignore
+.ci-artifacts export-ignore
+.DS_Store export-ignore
