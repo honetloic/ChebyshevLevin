@@ -1,12 +1,14 @@
 name = "ChebyshevLevin"
 uuid = "e8d8c9f0-7f3e-4a8b-9f1c-2d3e4f5a6b7c"
 authors = ["Loic Honet"]
-version = "0.1.0-alpha.1"
+version = "0.1.0-alpha.2"
 
 [deps]
+QuadGK = "1fd47b50-473d-5c70-9696-f719f8f3bcdc"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 
 [compat]
+QuadGK = "2.11.3"
 Test = "1.11"
 LinearAlgebra = "1.11"
 julia = "1.11"

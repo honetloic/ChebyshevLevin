@@ -50,13 +50,6 @@ end
 function (result::LevinResult)(x::Real)
     left, right = result.problem.domain
     left <= x <= right || throw(DomainError(x, "Evaluation point is outside the problem interval."))
-    xi = 2 * (x - left) / (right - left) - 1
-    c = result.coefficients
-    b1 = zero(c[1] * xi)
-    b2 = b1
-    for k in length(c):-1:2
-        b0 = c[k] + 2 * xi * b1 - b2
-        b2, b1 = b1, b0
-    end
-    return c[1] + xi * b1 - b2
+    xi = to_chebyshev_coordinate(x, result.problem.domain)
+    return chebyshev_value(result.coefficients, xi)
 end

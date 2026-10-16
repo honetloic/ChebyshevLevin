@@ -6,4 +6,5 @@ using ChebyshevLevin
     include("fixed_order_solver.jl")
     include("reconstruction.jl")
     include("error_estimates.jl")
+    include("moments.jl")
 end

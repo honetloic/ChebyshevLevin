@@ -16,8 +16,8 @@ function assemble_operator(problem::LevinProblem; order::Integer=32)
     left, right = problem.domain
     n = order + 1
     T = typeof(left)
-    xi = [cospi(T(2*j + 1) / T(2*n)) for j in 0:order]
-    nodes = [left + (right-left) * (t+1)/2 for t in xi]
+    xi = chebyshev_gauss_nodes(order, T)
+    nodes = [from_chebyshev_coordinate(t, problem.domain) for t in xi]
     basis = Matrix{T}(undef, n, n)
     deriv = Matrix{T}(undef, n, n)
     for j in 1:n
